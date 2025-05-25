@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>فروشگاه مدرن و لوکس</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Vazirmatn', sans-serif;
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    header {
+      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      font-size: 2.5rem;
+      font-weight: 700;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      animation: slideIn 0.7s ease-out;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Hero Section */
+    .hero {
+      background: url('https://images.unsplash.com/photo-1556740738-6b4a6d8b9c9f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center/cover;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero button {
+      background: linear-gradient(45deg, #22c55e, #16a34a);
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Products Section */
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1400px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2rem;
+      color: #1e3a8a;
+      margin: 2rem 0;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .product {
+      background: white;
+      border-radius: 1rem;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .product:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .product img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product:hover img {
+      transform: scale(1.1);
+    }
+
+    .product-content {
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .product h3 {
+      margin: 0.5rem 0;
+      color: #1e3a8a;
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+
+    .product p {
+      color: #6b7280;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .product button {
+      background: linear-gradient(45deg, #22c55e, #16a34a);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .product button::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+
+    .product button:hover::after {
+      width: 200px;
+      height: 200px;
+    }
+
+    .product button:hover {
+      background: linear-gradient(45deg, #16a34a, #15803d);
+      transform: scale(1.05);
+    }
+
+    /* Featured Products */
+    .featured {
+      background: linear-gradient(135deg, #fef3c7, #fef9c3);
+      padding: 3rem;
+      margin: 2rem 0;
+    }
+
+    .featured .container {
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    }
+
+    /* Cart Styles */
+    .cart {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+      min-width: 300px;
+      transition: transform 0.3s ease;
+    }
+
+    .cart:hover {
+      transform: scale(1.02);
+    }
+
+    .cart-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+    }
+
+    .cart-icon {
+      font-size: 1.8rem;
+      color: #22c55e;
+      margin-left: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .cart div {
+      font-size: 1.1rem;
+      color: #4b5563;
+      margin: 0.5rem 0;
+    }
+
+    .cart strong {
+      color: #1e3a8a;
+    }
+
+    .cart-items {
+      max-height: 250px;
+      overflow-y: auto;
+      margin-top: 1rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 0;
+      font-size: 0.95rem;
+      color: #4b5563;
+      border-bottom: 1px solid #f3f4f6;
+    }
+
+    .cart-item button {
+      background: #ef4444;
+      border: none;
+      padding: 0.3rem 0.7rem;
+      border-radius: 0.25rem;
+      color: white;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background 0.2s ease;
+    }
+
+    .cart-item button:hover {
+      background: #dc2626;
+    }
+
+    /* Newsletter Section */
+    .newsletter {
+      background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+      color: white;
+      padding: 3rem;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .newsletter h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter p {
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .newsletter input {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.5rem;
+      width: 250px;
+      font-size: 1rem;
+      margin-left: 0.5rem;
+    }
+
+    .newsletter button {
+      background: #22c55e;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .newsletter button:hover {
+      background: #16a34a;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: #1e3a8a;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    footer p {
+      margin: 0.5rem 0;
+    }
+
+    footer a {
+      color: #22c55e;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    footer a:hover {
+      color: #16a34a;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        padding: 2rem;
+      }
+
+      .cart {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        top: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        font-size: 2rem;
+        padding: 1.5rem;
+      }
+
+      .hero {
+        height: 50vh;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+
+      .product img {
+        height: 200px;
+      }
+
+      .product h3 {
+        font-size: 1.4rem;
+      }
+
+      .newsletter input {
+        width: 200px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero h1 {
+        font-size: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 0.9rem;
+      }
+
+      .hero button {
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+      }
+
+      .product img {
+        height: 180px;
+      }
+
+      .product h3 {
+        font-size: 1.2rem;
+      }
+
+      .product p {
+        font-size: 0.9rem;
+      }
+
+      .product button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .newsletter input {
+        width: 100%;
+        margin-bottom: 1rem;
+        margin-left: 0;
+      }
+
+      .newsletter button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>🛍 فروشگاه مدرن و لوکس</header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>به فروشگاه رویایی خود خوش آمدید!</h1>
+      <p>محصولات باکیفیت با بهترین قیمت‌ها در انتظار شماست</p>
+      <button onclick="document.getElementById('products').scrollIntoView({ behavior: 'smooth' })">
+        شروع خرید
+      </button>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="featured" id="featured">
+    <h2 class="section-title">محصولات ویژه</h2>
+    <div class="container" id="featured-list"></div>
+  </section>
+
+  <!-- All Products -->
+  <section id="products">
+    <h2 class="section-title">همه محصولات</h2>
+    <div class="container" id="product-list"></div>
+  </section>
+
+  <!-- Cart -->
+  <div class="cart" id="cart">
+    <div class="cart-title">
+      <span class="cart-icon">🛒</span> سبد خرید شما
+    </div>
+    <div>تعداد اقلام: <strong id="cart-count">0</strong></div>
+    <div>مجموع: <strong id="cart-total">0</strong> تومان</div>
+    <div class="cart-items" id="cart-items"></div>
+  </div>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter">
+    <h2>عضویت در خبرنامه</h2>
+    <p>با عضویت در خبرنامه از آخرین تخفیف‌ها و محصولات جدید باخبر شوید!</p>
+    <div>
+      <input type="email" id="newsletter-email" placeholder="ایمیل خود را وارد کنید">
+      <button onclick="subscribeNewsletter()">عضویت</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 فروشگاه مدرن و لوکس. تمامی حقوق محفوظ است.</p>
+    <p>تماس با ما: <a href="mailto:info@modernshop.com">info@modernshop.com</a></p>
+  </footer>
+
+  <script>
+    const products = [
+      { id: 1, name: 'گوشی هوشمند سامسونگ', price: 18500000, image: 'https://via.placeholder.com/400x250?text=Smartphone', featured: true },
+      { id: 2, name: 'هدفون بی‌سیم سونی', price: 3200000, image: 'https://via.placeholder.com/400x250?text=Headphones', featured: true },
+      { id: 3, name: 'لپ‌تاپ ASUS', price: 28900000, image: 'https://via.placeholder.com/400x250?text=Laptop', featured: false },
+      { id: 4, name: 'ساعت هوشمند اپل', price: 13500000, image: 'https://via.placeholder.com/400x250?text=Smartwatch', featured: true },
+      { id: 5, name: 'تلویزیون ۴K ال‌جی', price: 23500000, image: 'https://via.placeholder.com/400x250?text=TV+4K', featured: false },
+      { id: 6, name: 'دوربین دیجیتال کانن', price: 16500000, image: 'https://via.placeholder.com/400x250?text=Camera', featured: false }
+    ];
+
+    let cart = [];
+
+    function renderProducts() {
+      const productList = document.getElementById('product-list');
+      const featuredList = document.getElementById('featured-list');
+      productList.innerHTML = '';
+      featuredList.innerHTML = '';
+
+      products.forEach((p, index) => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.style.animationDelay = `${index * 0.1}s`;
+        div.innerHTML = `
+          <img src="${p.image}" alt="${p.name}" />
+          <div class="product-content">
+            <h3>${p.name}</h3>
+            <p>${p.price.toLocaleString()} تومان</p>
+            <button onclick="addToCart(${p.id})">افزودن به سبد خرید</button>
+          </div>
+        `;
+        if (p.featured) {
+          featuredList.appendChild(div.cloneNode(true));
+        }
+        productList.appendChild(div);
+      });
+    }
+
+    function addToCart(id) {
+      const product = products.find(p => p.id === id);
+      cart.push(product);
+      updateCart();
+      showNotification(`${product.name} به سبد خرید اضافه شد!`);
+    }
+
+    function removeFromCart(id) {
+      const product = cart[id];
+      cart = cart.filter((_, index) => index !== id);
+      updateCart();
+      showNotification(`${product.name} از سبد خرید حذف شد.`);
+    }
+
+    function updateCart() {
+      const count = cart.length;
+      const total = cart.reduce((sum, p) => sum + p.price, 0);
+      document.getElementById('cart-count').innerText = count;
+      document.getElementById('cart-total').innerText = total.toLocaleString();
+
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = '';
+      cart.forEach((p, index) => {
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+          <span>${p.name}</span>
+          <span>${p.price.toLocaleString()} تومان
+            <button onclick="removeFromCart(${index})">حذف</button>
+          </span>
+        `;
+        cartItems.appendChild(item);
+      });
+    }
+
+    function showNotification(message) {
+      const notification = document.createElement('div');
+      notification.style.position = 'fixed';
+      notification.style.top = '20px';
+      notification.style.left = '50%';
+      notification.style.transform = 'translateX(-50%)';
+      notification.style.background = '#22c55e';
+      notification.style.color = 'white';
+      notification.style.padding = '1rem 2rem';
+      notification.style.borderRadius = '0.5rem';
+      notification.style.boxShadow = '0 4px 10px rgba(0, 0, 0, 0.2)';
+      notification.style.zIndex = '2000';
+      notification.style.animation = 'fadeInOut 3s ease';
+      notification.innerText = message;
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletter-email').value;
+      if (email) {
+        showNotification('با موفقیت در خبرنامه ثبت‌نام کردید!');
+        document.getElementById('newsletter-email').value = '';
+      } else {
+        showNotification('لطفاً ایمیل خود را وارد کنید.');
+      }
+    }
+
+    // Keyframe for notification
+    const styleSheet = document.createElement('style');
+    styleSheet.innerHTML = `
+      @keyframes fadeInOut {
+        0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+        10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+        100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      }
+    `;
+    document.head.appendChild(styleSheet);
+
+    // Initialize
+    renderProducts();
+  </script>
+</body>
+</html>
