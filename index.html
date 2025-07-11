@@ -20,19 +20,81 @@
       overflow-x: hidden;
     }
 
+    /* Loading Animation */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3000;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #3b82f6;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
     /* Header Styles */
     header {
       background: linear-gradient(45deg, #1e3a8a, #3b82f6);
       color: white;
       text-align: center;
-      padding: 2rem;
-      font-size: 2.5rem;
+      padding: 1.5rem;
+      font-size: 2rem;
       font-weight: 700;
       position: sticky;
       top: 0;
       z-index: 1000;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       animation: slideIn 0.7s ease-out;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-icon {
+      display: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      padding: 0.5rem;
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      transition: background 0.3s ease;
+    }
+
+    .nav-menu a:hover {
+      background: rgba(255, 255, 255, 0.2);
     }
 
     @keyframes slideIn {
@@ -97,12 +159,55 @@
       box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
 
+    /* Search and Filter Section */
+    .search-filter {
+      padding: 2rem;
+      background: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 2rem;
+      border-radius: 1rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .search-filter input {
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      width: 250px;
+      font-size: 1rem;
+    }
+
+    .search-filter select {
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .search-filter button {
+      background: #3b82f6;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .search-filter button:hover {
+      background: #1e3a8a;
+    }
+
     /* Products Section */
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 2rem;
-      padding: 3rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
       max-width: 1400px;
       margin: auto;
     }
@@ -123,6 +228,8 @@
       transition: transform 0.4s ease, box-shadow 0.4s ease;
       position: relative;
       animation: fadeInUp 0.6s ease-out;
+      display: flex;
+      flex-direction: column;
     }
 
     .product:hover {
@@ -142,52 +249,45 @@
     }
 
     .product-content {
-      padding: 1.5rem;
+      padding: 1rem;
       text-align: center;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
     .product h3 {
       margin: 0.5rem 0;
       color: #1e3a8a;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       font-weight: 700;
     }
 
     .product p {
       color: #6b7280;
       margin-bottom: 1rem;
-      font-size: 1.1rem;
+      font-size: 1rem;
+    }
+
+    .product-buttons {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .product button {
       background: linear-gradient(45deg, #22c55e, #16a34a);
       border: none;
-      padding: 0.75rem 1.5rem;
+      padding: 0.75rem 1rem;
       border-radius: 0.5rem;
       color: white;
-      font-size: 1rem;
+      font-size: 0.9rem;
       cursor: pointer;
-      position: relative;
-      overflow: hidden;
       transition: background 0.3s ease, transform 0.2s ease;
-    }
-
-    .product button::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.4s ease, height 0.4s ease;
-    }
-
-    .product button:hover::after {
-      width: 200px;
-      height: 200px;
+      flex: 1;
+      min-width: 120px;
     }
 
     .product button:hover {
@@ -198,45 +298,153 @@
     /* Featured Products */
     .featured {
       background: linear-gradient(135deg, #fef3c7, #fef9c3);
-      padding: 3rem;
+      padding: 2rem 1rem;
       margin: 2rem 0;
     }
 
     .featured .container {
-      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .featured .product {
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .featured .product img {
+      height: 200px;
+    }
+
+    .featured .product h3 {
+      font-size: 1.3rem;
+    }
+
+    .featured .product p {
+      font-size: 0.95rem;
+    }
+
+    /* Product Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      max-width: 600px;
+      width: 90%;
+      position: relative;
+      animation: slideInModal 0.5s ease-out;
+    }
+
+    .modal-content img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+
+    .modal-content h3 {
+      font-size: 1.8rem;
+      color: #1e3a8a;
+      margin: 1rem 0;
+    }
+
+    .modal-content p {
+      font-size: 1.1rem;
+      color: #4b5563;
+      margin-bottom: 1rem;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ef4444;
+    }
+
+    @keyframes slideInModal {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
     }
 
     /* Cart Styles */
     .cart {
       position: fixed;
-      top: 2rem;
-      left: 2rem;
+      bottom: 1rem;
+      right: 1rem;
       background: white;
       border-radius: 1rem;
-      padding: 1.5rem;
+      padding: 1rem;
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
       z-index: 1000;
-      min-width: 300px;
+      min-width: 280px;
+      max-width: 320px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .cart.hidden {
+      transform: translateY(100%);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .cart-toggle {
+      position: fixed;
+      bottom: 4rem;
+      right: 1rem;
+      background: linear-gradient(45deg, #22c55e, #16a34a);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      z-index: 1100;
       transition: transform 0.3s ease;
     }
 
-    .cart:hover {
-      transform: scale(1.02);
+    .cart-toggle:hover {
+      transform: scale(1.1);
+    }
+
+    .cart-toggle.hidden {
+      transform: rotate(180deg);
     }
 
     .cart-title {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 700;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       color: #1e3a8a;
       display: flex;
       align-items: center;
+      justify-content: space-between;
     }
 
     .cart-icon {
-      font-size: 1.8rem;
+      font-size: 1.6rem;
       color: #22c55e;
-      margin-left: 0.5rem;
       animation: pulse 2s infinite;
     }
 
@@ -247,9 +455,9 @@
     }
 
     .cart div {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: #4b5563;
-      margin: 0.5rem 0;
+      margin: 0.4rem 0;
     }
 
     .cart strong {
@@ -257,9 +465,9 @@
     }
 
     .cart-items {
-      max-height: 250px;
+      max-height: 200px;
       overflow-y: auto;
-      margin-top: 1rem;
+      margin-top: 0.8rem;
       padding-top: 0.5rem;
       border-top: 1px solid #e5e7eb;
     }
@@ -268,8 +476,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0.5rem 0;
-      font-size: 0.95rem;
+      padding: 0.4rem 0;
+      font-size: 0.9rem;
       color: #4b5563;
       border-bottom: 1px solid #f3f4f6;
     }
@@ -277,11 +485,11 @@
     .cart-item button {
       background: #ef4444;
       border: none;
-      padding: 0.3rem 0.7rem;
+      padding: 0.3rem 0.6rem;
       border-radius: 0.25rem;
       color: white;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: background 0.2s ease;
     }
 
@@ -293,9 +501,9 @@
     .newsletter {
       background: linear-gradient(45deg, #1e3a8a, #3b82f6);
       color: white;
-      padding: 3rem;
+      padding: 2rem;
       text-align: center;
-      margin-top: 3rem;
+      margin-top: 2rem;
     }
 
     .newsletter h2 {
@@ -314,7 +522,7 @@
       border-radius: 0.5rem;
       width: 250px;
       font-size: 1rem;
-      margin-left: 0.5rem;
+      margin: 0.5rem;
     }
 
     .newsletter button {
@@ -373,22 +581,53 @@
       }
 
       .container {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        padding: 2rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        padding: 1.5rem;
+      }
+
+      .featured .container {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       }
 
       .cart {
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        top: 1rem;
+        max-width: 90%;
+      }
+
+      .search-filter {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search-filter input,
+      .search-filter select {
+        width: 100%;
       }
     }
 
     @media (max-width: 768px) {
       header {
-        font-size: 2rem;
-        padding: 1.5rem;
+        font-size: 1.5rem;
+        padding: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .menu-icon {
+        display: block;
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #1e3a8a;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem;
+      }
+
+      .nav-menu.active {
+        display: flex;
       }
 
       .hero {
@@ -404,15 +643,35 @@
       }
 
       .product img {
-        height: 200px;
+        height: 180px;
       }
 
       .product h3 {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
+      }
+
+      .featured .product img {
+        height: 160px;
+      }
+
+      .featured .product h3 {
+        font-size: 1.1rem;
       }
 
       .newsletter input {
-        width: 200px;
+        width: 100%;
+      }
+
+      .cart {
+        bottom: 4rem;
+        right: 0.5rem;
+        width: 90%;
+        max-width: 300px;
+      }
+
+      .cart-toggle {
+        bottom: 0.5rem;
+        right: 0.5rem;
       }
     }
 
@@ -430,12 +689,20 @@
         font-size: 1rem;
       }
 
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .featured .container {
+        grid-template-columns: 1fr;
+      }
+
       .product img {
-        height: 180px;
+        height: 160px;
       }
 
       .product h3 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
       }
 
       .product p {
@@ -443,24 +710,81 @@
       }
 
       .product button {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.8rem;
+        font-size: 0.85rem;
+        min-width: 100px;
+      }
+
+      .featured .product img {
+        height: 140px;
+      }
+
+      .featured .product h3 {
+        font-size: 1rem;
+      }
+
+      .featured .product p {
+        font-size: 0.85rem;
+      }
+
+      .newsletter input,
+      .newsletter button {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .modal-content {
+        width: 95%;
+        padding: 1rem;
+      }
+
+      .modal-content img {
+        height: 200px;
+      }
+
+      .cart {
+        min-width: 0;
+        width: 90%;
+        max-width: 280px;
+        padding: 0.8rem;
+      }
+
+      .cart-title {
+        font-size: 1.2rem;
+      }
+
+      .cart div {
         font-size: 0.9rem;
       }
 
-      .newsletter input {
-        width: 100%;
-        margin-bottom: 1rem;
-        margin-left: 0;
+      .cart-item {
+        font-size: 0.85rem;
       }
 
-      .newsletter button {
-        width: 100%;
+      .cart-item button {
+        padding: 0.2rem 0.5rem;
+        font-size: 0.75rem;
       }
     }
   </style>
 </head>
 <body>
-  <header>🛍 فروشگاه مدرن و لوکس</header>
+  <!-- Loading Animation -->
+  <div class="loader" id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <span class="menu-icon" onclick="toggleMenu()">☰</span>
+    <span>🛍 فروشگاه مدرن و لوکس</span>
+    <div class="nav-menu" id="nav-menu">
+      <a href="#products">همه محصولات</a>
+      <a href="#featured">محصولات ویژه</a>
+      <a href="#newsletter">خبرنامه</a>
+      <a href="#contact">تماس با ما</a>
+    </div>
+  </header>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -471,6 +795,21 @@
         شروع خرید
       </button>
     </div>
+  </section>
+
+  <!-- Search and Filter -->
+  <section class="search-filter">
+    <input type="text" id="search-input" placeholder="جستجوی محصول...">
+    <select id="category-filter">
+      <option value="all">همه دسته‌بندی‌ها</option>
+      <option value="smartphone">گوشی هوشمند</option>
+      <option value="headphones">هدفون</option>
+      <option value="laptop">لپ‌تاپ</option>
+      <option value="smartwatch">ساعت هوشمند</option>
+      <option value="tv">تلویزیون</option>
+      <option value="camera">دوربین</option>
+    </select>
+    <button onclick="filterProducts()">فیلتر</button>
   </section>
 
   <!-- Featured Products -->
@@ -485,8 +824,21 @@
     <div class="container" id="product-list"></div>
   </section>
 
+  <!-- Product Modal -->
+  <div class="modal" id="product-modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">✕</span>
+      <img id="modal-image" src="" alt="Product Image">
+      <h3 id="modal-name"></h3>
+      <p id="modal-price"></p>
+      <p id="modal-description"></p>
+      <button onclick="addToCartFromModal()">افزودن به سبد خرید</button>
+    </div>
+  </div>
+
   <!-- Cart -->
-  <div class="cart" id="cart">
+  <button class="cart-toggle" id="cart-toggle" onclick="toggleCart()">🛒</button>
+  <div class="cart hidden" id="cart">
     <div class="cart-title">
       <span class="cart-icon">🛒</span> سبد خرید شما
     </div>
@@ -496,7 +848,7 @@
   </div>
 
   <!-- Newsletter Section -->
-  <section class="newsletter">
+  <section class="newsletter" id="newsletter">
     <h2>عضویت در خبرنامه</h2>
     <p>با عضویت در خبرنامه از آخرین تخفیف‌ها و محصولات جدید باخبر شوید!</p>
     <div>
@@ -506,39 +858,45 @@
   </section>
 
   <!-- Footer -->
-  <footer>
+  <footer id="contact">
     <p>© 2025 فروشگاه مدرن و لوکس. تمامی حقوق محفوظ است.</p>
-    <p>تماس با ما: <a href="mailto:info@modernshop.com">info@modernshop.com</a></p>
+    <p>تماس با ما: <a href="mailto:mahmoudyousefics@gmail.com">mahmoudyousefics@gmail.com</a></p>
+    <p>دنبال کنید: <a href="#">اینستاگرام</a> | <a href="#">تلگرام</a></p>
   </footer>
 
   <script>
     const products = [
-      { id: 1, name: 'گوشی هوشمند سامسونگ', price: 18500000, image: 'https://via.placeholder.com/400x250?text=Smartphone', featured: true },
-      { id: 2, name: 'هدفون بی‌سیم سونی', price: 3200000, image: 'https://via.placeholder.com/400x250?text=Headphones', featured: true },
-      { id: 3, name: 'لپ‌تاپ ASUS', price: 28900000, image: 'https://via.placeholder.com/400x250?text=Laptop', featured: false },
-      { id: 4, name: 'ساعت هوشمند اپل', price: 13500000, image: 'https://via.placeholder.com/400x250?text=Smartwatch', featured: true },
-      { id: 5, name: 'تلویزیون ۴K ال‌جی', price: 23500000, image: 'https://via.placeholder.com/400x250?text=TV+4K', featured: false },
-      { id: 6, name: 'دوربین دیجیتال کانن', price: 16500000, image: 'https://via.placeholder.com/400x250?text=Camera', featured: false }
+      { id: 1, name: 'گوشی هوشمند سامسونگ', price: 18500000, image: 'https://via.placeholder.com/400x250?text=Smartphone', category: 'smartphone', description: 'گوشی هوشمند با صفحه نمایش AMOLED و عملکرد بالا', featured: true },
+      { id: 2, name: 'هدفون بی‌سیم سونی', price: 3200000, image: 'https://via.placeholder.com/400x250?text=Headphones', category: 'headphones', description: 'هدفون بی‌سیم با کیفیت صدای عالی', featured: true },
+      { id: 3, name: 'لپ‌تاپ ASUS', price: 28900000, image: 'https://via.placeholder.com/400x250?text=Laptop', category: 'laptop', description: 'لپ‌تاپ قدرتمند برای گیمینگ و کارهای حرفه‌ای', featured: false },
+      { id: 4, name: 'ساعت هوشمند اپل', price: 13500000, image: 'https://via.placeholder.com/400x250?text=Smartwatch', category: 'smartwatch', description: 'ساعت هوشمند با امکانات پیشرفته', featured: true },
+      { id: 5, name: 'تلویزیون ۴K ال‌جی', price: 23500000, image: 'https://via.placeholder.com/400x250?text=TV+4K', category: 'tv', description: 'تلویزیون ۴K با کیفیت تصویر فوق‌العاده', featured: false },
+      { id: 6, name: 'دوربین دیجیتال کانن', price: 16500000, image: 'https://via.placeholder.com/400x250?text=Camera', category: 'camera', description: 'دوربین حرفه‌ای برای عکاسی و فیلم‌برداری', featured: false }
     ];
 
     let cart = [];
+    let selectedProduct = null;
+    let isCartVisible = false;
 
-    function renderProducts() {
+    function renderProducts(filteredProducts = products) {
       const productList = document.getElementById('product-list');
       const featuredList = document.getElementById('featured-list');
       productList.innerHTML = '';
       featuredList.innerHTML = '';
 
-      products.forEach((p, index) => {
+      filteredProducts.forEach((p, index) => {
         const div = document.createElement('div');
         div.className = 'product';
-        div.style.animationDelay = `${index * 0.1}s`;
+        div.style.animationDelay = `${index * 0.2}s`;
         div.innerHTML = `
           <img src="${p.image}" alt="${p.name}" />
           <div class="product-content">
             <h3>${p.name}</h3>
             <p>${p.price.toLocaleString()} تومان</p>
-            <button onclick="addToCart(${p.id})">افزودن به سبد خرید</button>
+            <div class="product-buttons">
+              <button onclick="addToCart(${p.id})">افزودن به سبد خرید</button>
+              <button onclick="showProductModal(${p.id})">مشاهده جزئیات</button>
+            </div>
           </div>
         `;
         if (p.featured) {
@@ -553,6 +911,17 @@
       cart.push(product);
       updateCart();
       showNotification(`${product.name} به سبد خرید اضافه شد!`);
+      if (!isCartVisible) toggleCart();
+    }
+
+    function addToCartFromModal() {
+      if (selectedProduct) {
+        cart.push(selectedProduct);
+        updateCart();
+        showNotification(`${selectedProduct.name} به سبد خرید اضافه شد!`);
+        closeModal();
+        if (!isCartVisible) toggleCart();
+      }
     }
 
     function removeFromCart(id) {
@@ -583,6 +952,57 @@
       });
     }
 
+    function showProductModal(id) {
+      selectedProduct = products.find(p => p.id === id);
+      const modal = document.getElementById('product-modal');
+      document.getElementById('modal-image').src = selectedProduct.image;
+      document.getElementById('modal-name').innerText = selectedProduct.name;
+      document.getElementById('modal-price').innerText = `${selectedProduct.price.toLocaleString()} تومان`;
+      document.getElementById('modal-description').innerText = selectedProduct.description;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('product-modal').style.display = 'none';
+      selectedProduct = null;
+    }
+
+    function filterProducts() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const category = document.getElementById('category-filter').value;
+
+      const filteredProducts = products.filter(p => {
+        const matchesSearch = p.name.toLowerCase().includes(search);
+        const matchesCategory = category === 'all' || p.category === category;
+        return matchesSearch && matchesCategory;
+      });
+
+      renderProducts(filteredProducts);
+    }
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('newsletter-email').value;
+      if (email) {
+        showNotification('با موفقیت در خبرنامه ثبت‌نام کردید!');
+        document.getElementById('newsletter-email').value = '';
+      } else {
+        showNotification('لطفاً ایمیل خود را وارد کنید.');
+      }
+    }
+
+    function toggleMenu() {
+      const navMenu = document.getElementById('nav-menu');
+      navMenu.classList.toggle('active');
+    }
+
+    function toggleCart() {
+      const cart = document.getElementById('cart');
+      const cartToggle = document.getElementById('cart-toggle');
+      isCartVisible = !isCartVisible;
+      cart.classList.toggle('hidden', !isCartVisible);
+      cartToggle.classList.toggle('hidden', isCartVisible);
+    }
+
     function showNotification(message) {
       const notification = document.createElement('div');
       notification.style.position = 'fixed';
@@ -604,16 +1024,6 @@
       }, 3000);
     }
 
-    function subscribeNewsletter() {
-      const email = document.getElementById('newsletter-email').value;
-      if (email) {
-        showNotification('با موفقیت در خبرنامه ثبت‌نام کردید!');
-        document.getElementById('newsletter-email').value = '';
-      } else {
-        showNotification('لطفاً ایمیل خود را وارد کنید.');
-      }
-    }
-
     // Keyframe for notification
     const styleSheet = document.createElement('style');
     styleSheet.innerHTML = `
@@ -627,7 +1037,12 @@
     document.head.appendChild(styleSheet);
 
     // Initialize
-    renderProducts();
+    window.onload = () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 1000);
+      renderProducts();
+    };
   </script>
 </body>
 </html>
