@@ -62,7 +62,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row-reverse;
+  flex-direction: row;
 }
 
 .menu-icon {
@@ -619,6 +619,7 @@ footer a:hover {
     font-size: 1.5rem;
     padding: 1rem;
     flex-wrap: wrap;
+    flex-direction: row-reverse;
   }
 
   .menu-icon {
@@ -919,4 +920,169 @@ footer a:hover {
     0% { opacity: 0; transform: translateY(-10px); }
     100% { opacity: 1; transform: translateY(0); }
   }
+}
+
+/* Define theme classes with different gradients */
+.theme-1 {
+  background: linear-gradient(135deg, #f0f4ff, #e0e7ff);
+}
+.theme-2 {
+  background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+}
+.theme-3 {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+}
+.theme-4 {
+  background: linear-gradient(135deg, #e0e7ff, #bfdbfe);
+}
+
+/* Header gradient themes */
+.header-theme-1 {
+  background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+}
+.header-theme-2 {
+  background: linear-gradient(45deg, #7c3aed, #a855f7);
+}
+.header-theme-3 {
+  background: linear-gradient(45deg, #047857, #10b981);
+}
+.header-theme-4 {
+  background: linear-gradient(45deg, #6d28d9, #8b5cf6);
+}
+
+/* Hero gradient overlay themes */
+.hero-theme-1::before {
+  background: rgba(0, 0, 0, 0.5);
+}
+.hero-theme-2::before {
+  background: rgba(76, 29, 149, 0.5);
+}
+.hero-theme-3::before {
+  background: rgba(6, 78, 59, 0.5);
+}
+.hero-theme-4::before {
+  background: rgba(109, 40, 217, 0.5);
+}
+
+/* Featured section gradient themes */
+.featured-theme-1 {
+  background: linear-gradient(135deg, #fef3c7, #fef9c3);
+}
+.featured-theme-2 {
+  background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+}
+.featured-theme-3 {
+  background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+}
+.featured-theme-4 {
+  background: linear-gradient(135deg, #e0e7ff, #bfdbfe);
+}
+
+/* Newsletter gradient themes */
+.newsletter-theme-1 {
+  background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+}
+.newsletter-theme-2 {
+  background: linear-gradient(45deg, #7c3aed, #a855f7);
+}
+.newsletter-theme-3 {
+  background: linear-gradient(45deg, #047857, #10b981);
+}
+.newsletter-theme-4 {
+  background: linear-gradient(45deg, #6d28d9, #8b5cf6);
+}
+
+/* Smooth transition for theme changes */
+body, header, .hero, .featured, .newsletter {
+  transition: background 1.5s ease;
+}
+
+/* Enhanced button animations */
+.hero button, .product button, .search-filter button, .newsletter button {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.hero button::after, .product button::after, .search-filter button::after, .newsletter button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  transition: left 0.6s ease;
+}
+
+.hero button:hover::after, .product button:hover::after, .search-filter button:hover::after, .newsletter button:hover::after {
+  left: 100%;
+}
+
+/* Enhanced product card entrance */
+.product {
+  animation: fadeInUp 0.8s ease-out forwards;
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.5s ease;
+}
+
+.product:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+/* Cart animation enhancements */
+.cart {
+  transition: transform 0.5s ease, opacity 0.5s ease, background 0.5s ease;
+}
+
+.cart-toggle {
+  animation: cartPulse 2.5s ease-in-out infinite;
+}
+
+/* Theme transition animation */
+@keyframes themeFade {
+  0% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+/* Update existing animations */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+/* Footer gradient themes */
+.footer-theme-1 {
+  background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+}
+.footer-theme-2 {
+  background: linear-gradient(45deg, #7c3aed, #a855f7);
+}
+.footer-theme-3 {
+  background: linear-gradient(45deg, #047857, #10b981);
+}
+.footer-theme-4 {
+  background: linear-gradient(45deg, #6d28d9, #8b5cf6);
+}
+
+/* Ensure footer has smooth transition */
+footer {
+  transition: background 1.5s ease;
+}
+
+/* Update footer link hover effects for consistency */
+footer a {
+  color: #22c55e;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer a:hover {
+  color: #16a34a;
+  transform: scale(1.05);
 }

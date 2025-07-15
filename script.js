@@ -170,10 +170,78 @@ styleSheet.innerHTML = `
 `;
 document.head.appendChild(styleSheet);
 
-// Initialize
+// Theme cycling logic
+const themes = [
+  { 
+    body: 'theme-1', 
+    header: 'header-theme-1', 
+    hero: 'hero-theme-1', 
+    featured: 'featured-theme-1', 
+    newsletter: 'newsletter-theme-1',
+    footer: 'footer-theme-1' 
+  },
+  { 
+    body: 'theme-2', 
+    header: 'header-theme-2', 
+    hero: 'hero-theme-2', 
+    featured: 'featured-theme-2', 
+    newsletter: 'newsletter-theme-2',
+    footer: 'footer-theme-2' 
+  },
+  { 
+    body: 'theme-3', 
+    header: 'header-theme-3', 
+    hero: 'hero-theme-3', 
+    featured: 'featured-theme-3', 
+    newsletter: 'newsletter-theme-3',
+    footer: 'footer-theme-3' 
+  },
+  { 
+    body: 'theme-4', 
+    header: 'header-theme-4', 
+    hero: 'hero-theme-4', 
+    featured: 'featured-theme-4', 
+    newsletter: 'newsletter-theme-4',
+    footer: 'footer-theme-4' 
+  }
+];
+
+let currentThemeIndex = 0;
+
+function changeTheme() {
+  const currentTheme = themes[currentThemeIndex];
+  document.body.className = currentTheme.body;
+  document.querySelector('header').className = currentTheme.header;
+  document.querySelector('.hero').className = 'hero ' + currentTheme.hero;
+  document.querySelector('.featured').className = 'featured ' + currentTheme.featured;
+  document.querySelector('.newsletter').className = 'newsletter ' + currentTheme.newsletter;
+  document.querySelector('footer').className = currentTheme.footer;
+
+  // Animate theme transition
+  document.body.style.animation = 'themeFade 1.5s ease';
+  document.querySelector('footer').style.animation = 'themeFade 1.5s ease';
+  setTimeout(() => { 
+    document.body.style.animation = ''; 
+    document.querySelector('footer').style.animation = ''; 
+  }, 1500);
+
+  currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+}
+
+// Initialize theme and set interval for theme change
 window.onload = () => {
   setTimeout(() => {
     document.getElementById('loader').classList.add('hidden');
   }, 1000);
   renderProducts();
+  changeTheme(); // Apply initial theme
+  setInterval(changeTheme, 5000); // Change theme every 10 seconds
 };
+
+// Update toggleMenu to ensure theme consistency
+function toggleMenu() {
+  const navMenu = document.getElementById('nav-menu');
+  navMenu.classList.toggle('active');
+  // Ensure header theme persists when menu toggles
+  document.querySelector('header').className = themes[currentThemeIndex].header + (navMenu.classList.contains('active') ? ' active' : '');
+}
